@@ -1,8 +1,7 @@
-import 'dart:io';
-import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:machine_learning_app/face_recognition.dart';
+import 'package:machine_learning_app/image_labeling.dart';
+import 'package:machine_learning_app/qr_code.dart';
 import 'package:machine_learning_app/text_recognition.dart';
 
 void main() => runApp(MyApp());
@@ -46,22 +45,35 @@ class HomePage extends StatelessWidget {
             ),
             RaisedButton(
               onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => TextRecognitionScreen()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => TextRecognitionScreen(
+                          isTR: true,
+                        )));
               },
               child: Text('Text Recognition'),
             ),
             RaisedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => TextRecognitionScreen(
+                          isTR: false,
+                        )));
+              },
               child: Text('Barcode Scanner'),
             ),
             RaisedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => QRCodeScreen()));
+              },
               child: Text('QR Scanner'),
             ),
             RaisedButton(
-              onPressed: () {},
-              child: Text('Text to Speech'),
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => ImageLabelScreen()));
+              },
+              child: Text('Label Image'),
             ),
             RaisedButton(
               onPressed: () {},

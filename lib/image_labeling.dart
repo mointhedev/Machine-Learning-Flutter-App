@@ -4,21 +4,19 @@ import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class TextRecognitionScreen extends StatefulWidget {
-  bool isTR;
-
-  TextRecognitionScreen({this.isTR});
+class ImageLabelScreen extends StatefulWidget {
+  ImageLabelScreen();
 
   @override
-  _TextRecognitionScreenState createState() => _TextRecognitionScreenState();
+  _ImageLabelScreenState createState() => _ImageLabelScreenState();
 }
 
-class _TextRecognitionScreenState extends State<TextRecognitionScreen> {
+class _ImageLabelScreenState extends State<ImageLabelScreen> {
   File pickedImage;
 
   bool isLoading = false;
 
-  String imageText = '';
+  List<ImageLabel> imageLabels = [];
 
   ui.Image uiImage;
 
@@ -26,7 +24,6 @@ class _TextRecognitionScreenState extends State<TextRecognitionScreen> {
     var tempStore = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
-      imageText = '';
       isLoading = true;
       pickedImage = tempStore;
     });
@@ -39,63 +36,30 @@ class _TextRecognitionScreenState extends State<TextRecognitionScreen> {
       isLoading = false;
     });
 
-    widget.isTR
-        ? readText().then((String myText) {
-            setState(() {
-              imageText = myText;
-            });
-          })
-        : readBarcode().then((mycode) {
-            setState(() {
-              setState(() {
-                imageText = mycode;
-              });
-            });
-          });
+    readText().then((List<ImageLabel> myLabels) {
+      setState(() {
+        this.imageLabels = List.from(myLabels);
+      });
+    });
   }
 
-  Future<String> readText() async {
+  Future<List<ImageLabel>> readText() async {
+    setState(() {
+      this.imageLabels = new List<ImageLabel>();
+    });
+
     FirebaseVisionImage visionImage = FirebaseVisionImage.fromFile(pickedImage);
-    TextRecognizer recognizedText = FirebaseVision.instance.textRecognizer();
-    VisionText readText = await recognizedText.processImage(visionImage);
+    ImageLabeler imageLabeler = FirebaseVision.instance.imageLabeler();
+    List<ImageLabel> imageLabels = await imageLabeler.processImage(visionImage);
 
-    String tempImageText = '';
-
-    for (TextBlock block in readText.blocks) {
-//      tempImageText = tempImageText +
-//          ''
-//              '';
-      for (TextLine line in block.lines) {
-        tempImageText = tempImageText + '\n';
-        for (TextElement word in line.elements) {
-          tempImageText = tempImageText + word.text;
-          tempImageText = tempImageText + ' ';
-        }
-      }
-    }
-
-    return tempImageText;
-  }
-
-  Future<String> readBarcode() async {
-    FirebaseVisionImage visionImage = FirebaseVisionImage.fromFile(pickedImage);
-    BarcodeDetector barcodeDetector = FirebaseVision.instance.barcodeDetector();
-    List barcodes = await barcodeDetector.detectInImage(visionImage);
-
-    String tempImageText = '';
-
-    for (Barcode code in barcodes) {
-      tempImageText = code.displayValue;
-    }
-
-    return tempImageText;
+    return imageLabels;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.isTR ? 'Text Recognition' : 'Barcode Scanner'),
+        title: Text('Image Labeling'),
       ),
       body: isLoading
           ? Center(
@@ -123,13 +87,26 @@ class _TextRecognitionScreenState extends State<TextRecognitionScreen> {
                         child: Column(
                       children: <Widget>[
                         Text(
-                          widget.isTR ? 'Your text' : 'Your Code',
+                          'Labels',
                           style: Theme.of(context).textTheme.title,
                         ),
-                        Text(
-                          imageText,
-                          style: TextStyle(fontSize: 16),
-                        )
+                        Column(
+                            children:
+                                imageLabels != null && imageLabels.isNotEmpty
+                                    ? imageLabels.map((imageLabel) {
+                                        return Container(
+                                            height: 100,
+                                            child: Column(
+                                              children: <Widget>[
+                                                ListTile(
+                                                  title: Text(imageLabel.text),
+                                                  subtitle: Text(
+                                                      '${(imageLabel.confidence * 100).round()}%'),
+                                                )
+                                              ],
+                                            ));
+                                      }).toList()
+                                    : [Container()])
                       ],
                     )),
                   )

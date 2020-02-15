@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:machine_learning_app/face_recognition.dart';
 import 'package:machine_learning_app/image_labeling.dart';
 import 'package:machine_learning_app/qr_code.dart';
+import 'package:machine_learning_app/speech_to_text.dart';
 import 'package:machine_learning_app/text_recognition.dart';
 
 void main() => runApp(MyApp());
@@ -76,8 +77,18 @@ class HomePage extends StatelessWidget {
               child: Text('Label Image'),
             ),
             RaisedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => SpeechToTextScreen()));
+              },
               child: Text('Speech to Text'),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => SpeechToTextScreen()));
+              },
+              child: Text('Object Detection'),
             ),
           ],
         ),

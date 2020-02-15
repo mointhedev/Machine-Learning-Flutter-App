@@ -4,6 +4,7 @@ import 'package:machine_learning_app/image_labeling.dart';
 import 'package:machine_learning_app/qr_code.dart';
 import 'package:machine_learning_app/speech_to_text.dart';
 import 'package:machine_learning_app/text_recognition.dart';
+import 'object_detection.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,9 +12,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Face Recognition App',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.pink,
         ),
         home: HomePage());
   }
@@ -27,7 +29,12 @@ class HomePage extends StatelessWidget {
         title: Text('Machine Learning App'),
       ),
       body: Container(
-        padding: EdgeInsets.all(46),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [Colors.pink, Colors.deepPurple])),
+        padding: EdgeInsets.all(40),
         width: double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,9 +42,16 @@ class HomePage extends StatelessWidget {
           children: <Widget>[
             Text(
               'Select Scanner : ',
-              style: Theme.of(context).textTheme.title,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w500),
+            ),
+            SizedBox(
+              height: 1,
             ),
             RaisedButton(
+              color: Colors.lime,
               onPressed: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) => FaceRecognitionScreen()));
@@ -45,15 +59,19 @@ class HomePage extends StatelessWidget {
               child: Text('Face Recognition'),
             ),
             RaisedButton(
+              color: Colors.lime,
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (_) => TextRecognitionScreen(
                           isTR: true,
                         )));
               },
-              child: Text('Text Recognition'),
+              child: Text(
+                'Text Recognition',
+              ),
             ),
             RaisedButton(
+              color: Colors.lime,
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (_) => TextRecognitionScreen(
@@ -63,6 +81,7 @@ class HomePage extends StatelessWidget {
               child: Text('Barcode Scanner'),
             ),
             RaisedButton(
+              color: Colors.lime,
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (_) => QRCodeScreen()));
@@ -70,6 +89,7 @@ class HomePage extends StatelessWidget {
               child: Text('QR Scanner'),
             ),
             RaisedButton(
+              color: Colors.lime,
               onPressed: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) => ImageLabelScreen()));
@@ -77,6 +97,7 @@ class HomePage extends StatelessWidget {
               child: Text('Label Image'),
             ),
             RaisedButton(
+              color: Colors.lime,
               onPressed: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) => SpeechToTextScreen()));
@@ -84,9 +105,10 @@ class HomePage extends StatelessWidget {
               child: Text('Speech to Text'),
             ),
             RaisedButton(
+              color: Colors.lime,
               onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => SpeechToTextScreen()));
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => ObjectDetection()));
               },
               child: Text('Object Detection'),
             ),

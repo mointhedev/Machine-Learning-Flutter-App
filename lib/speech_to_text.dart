@@ -37,91 +37,114 @@ class _SpeechToTextScreenState extends State<SpeechToTextScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Speech to Text'),
+        centerTitle: true,
+        backgroundColor: Color(0xff006FA0),
       ),
-      body: _hasSpeech
-          ? Column(children: [
-              Expanded(
-                child: Center(
-                  child: Text(' '),
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Color(0xff006FA0), Color(0xff4E006A)])),
+        child: _hasSpeech
+            ? Column(children: [
+                Expanded(
+                  child: Center(
+                    child: Text(' '),
+                  ),
                 ),
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    FloatingActionButton(
-                      backgroundColor: Colors.black26,
-                      mini: true,
-                      child: Text('Stop'),
-                      onPressed: stopListening,
-                    ),
-                    FloatingActionButton(
-                      child: Text('Start'),
-                      onPressed: startListening,
-                    ),
-                    FloatingActionButton(
-                      backgroundColor: Colors.deepOrange,
-                      mini: true,
-                      child: Padding(
-                        padding: const EdgeInsets.all(3.0),
-                        child: FittedBox(child: Text('Cancel')),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      FloatingActionButton(
+                        backgroundColor: Colors.purpleAccent,
+                        mini: true,
+                        child: Text('Stop'),
+                        onPressed: stopListening,
                       ),
-                      onPressed: cancelListening,
-                    ),
-                  ],
+                      FloatingActionButton(
+                        child: Text('Start'),
+                        onPressed: startListening,
+                      ),
+                      FloatingActionButton(
+                        backgroundColor: Colors.deepOrange,
+                        mini: true,
+                        child: Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: FittedBox(child: Text('Cancel')),
+                        ),
+                        onPressed: cancelListening,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Expanded(
-                child: Column(
-                  children: <Widget>[
-                    Center(
-                      child: Text(
-                        'Recognized Words',
-                        style: Theme.of(context).textTheme.title,
-                      ),
-                    ),
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      Center(
                         child: Text(
-                          lastWords,
-                          style: TextStyle(color: Colors.blueAccent),
+                          'Recognized Words',
+                          style: Theme.of(context)
+                              .textTheme
+                              .title
+                              .copyWith(color: Colors.white),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  children: <Widget>[
-                    Center(
-                      child: Text(''),
-                    ),
-                    Center(
-                      child: Text(lastError),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Center(
-                  child: speech.isListening
-                      ? Text(
-                          "I'm listening...",
-                          style: Theme.of(context).textTheme.title,
-                        )
-                      : Text(
-                          'Not listening',
-                          style: Theme.of(context).textTheme.title,
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            lastWords,
+                            style: TextStyle(color: Colors.yellowAccent),
+                          ),
                         ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ])
-          : Center(
-              child: Text('Speech recognition unavailable',
-                  style:
-                      TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold))),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      Center(
+                        child: Text(''),
+                      ),
+                      Center(
+                        child: Text(
+                          lastError,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Center(
+                    child: speech.isListening
+                        ? Text(
+                            "I'm listening...",
+                            style: Theme.of(context)
+                                .textTheme
+                                .title
+                                .copyWith(color: Colors.white),
+                          )
+                        : Text(
+                            'Not listening',
+                            style: Theme.of(context)
+                                .textTheme
+                                .title
+                                .copyWith(color: Colors.white),
+                          ),
+                  ),
+                ),
+              ])
+            : Center(
+                child: Text('Speech recognition unavailable',
+                    style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white))),
+      ),
     );
   }
 

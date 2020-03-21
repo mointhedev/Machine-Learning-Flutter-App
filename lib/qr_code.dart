@@ -7,8 +7,7 @@ class QRCodeScreen extends StatefulWidget {
 }
 
 class _QRCodeScreenState extends State<QRCodeScreen> {
-  String result = 'Start scanning QR '
-      '👇';
+  String result = 'Start Scanning QR';
 
   Future _scanQR() async {
     try {
@@ -28,12 +27,20 @@ class _QRCodeScreenState extends State<QRCodeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('QR Code Scanner'),
+        centerTitle: true,
+        backgroundColor: Color(0xff006FA0),
       ),
       body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Color(0xff006FA0), Color(0xff4E006A)])),
         child: Center(
           child: Text(
             result,
-            style: Theme.of(context).textTheme.title,
+            style:
+                Theme.of(context).textTheme.title.copyWith(color: Colors.white),
           ),
         ),
       ),

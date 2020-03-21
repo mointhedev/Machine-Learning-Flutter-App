@@ -45,9 +45,7 @@ class _QRCodeScreenState extends State<QRCodeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-          onPressed: _scanQR,
-          icon: Icon(Icons.camera_alt),
-          label: Text('Scan')),
+          onPressed: _scanQR, icon: Icon(Icons.camera), label: Text('Scan')),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

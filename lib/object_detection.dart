@@ -150,35 +150,65 @@ class _ObjectDetectionState extends State<ObjectDetection> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height -
+        (MediaQuery.of(context).padding.top + AppBar().preferredSize.height);
     Size size = MediaQuery.of(context).size;
 
     List<Widget> stackChildren = [];
 
-    stackChildren.add(Positioned(
-        top: 0.0,
-        left: 0.0,
-        width: size.width,
-        child:
-            _image == null ? Text('No Image Selected') : Image.file(_image)));
+    stackChildren.add(Container(
+      height: screenHeight * 0.5,
+      width: double.infinity,
+      color: Color(0xffDEEDFF).withOpacity(0.64),
+      margin: EdgeInsets.all(8),
+      padding: EdgeInsets.all(8),
+      child: _image == null
+          ? Center(
+              child: Icon(
+                Icons.image,
+                size: 70,
+              ),
+            )
+          : Image.file(_image),
+    ));
 
     stackChildren.addAll(renderBoxes(size));
 
     if (_busy) {
-      stackChildren.add(Center(
-        child: CircularProgressIndicator(),
+      stackChildren.add(Container(
+        height: screenHeight * 0.5,
+        width: double.infinity,
+        color: Color(0xffDEEDFF).withOpacity(0.64),
+        margin: EdgeInsets.all(8),
+        padding: EdgeInsets.all(8),
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
       ));
     }
     return Scaffold(
       appBar: AppBar(
         title: Text('Object Detector'),
+        centerTitle: true,
+        backgroundColor: Color(0xff006FA0),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.image),
+        child: Icon(Icons.add_photo_alternate),
         tooltip: 'Pick image from gallery',
         onPressed: selectFromImagePicker,
       ),
-      body: Stack(
-        children: stackChildren,
+      body: SingleChildScrollView(
+        child: Container(
+          height: screenHeight,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0xff006FA0), Color(0xff4E006A)])),
+          child: Stack(
+            children: stackChildren,
+          ),
+        ),
       ),
     );
   }

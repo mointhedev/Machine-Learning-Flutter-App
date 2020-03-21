@@ -169,7 +169,7 @@ class _ImageLabelScreenState extends State<ImageLabelScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: pickImage,
-        child: Icon(Icons.camera_enhance),
+        child: Icon(Icons.add_photo_alternate),
       ),
     );
   }

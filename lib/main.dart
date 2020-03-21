@@ -68,67 +68,85 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 height: 1,
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => FaceRecognitionScreen()));
-                },
-                child: Image.asset(
-                  'assets/Group 14.png',
-                  width: 240,
+              Container(
+                height: 65,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => FaceRecognitionScreen()));
+                  },
+                  child: Image.asset(
+                    'assets/Group 14.png',
+                    width: 240,
+                  ),
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => TextRecognitionScreen(
-                            isTR: true,
-                          )));
-                },
-                child: Image.asset(
-                  'assets/Group 10.png',
-                  width: 240,
+              Container(
+                height: 65,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => TextRecognitionScreen(
+                              isTR: true,
+                            )));
+                  },
+                  child: Image.asset(
+                    'assets/Group 10.png',
+                    width: 240,
+                  ),
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => ImageLabelScreen()));
-                },
-                child: Image.asset(
-                  'assets/Group 15.png',
-                  width: 240,
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (_) => QRCodeScreen()));
-                },
-                child: Image.asset(
-                  'assets/Group 16.png',
-                  width: 240,
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => SpeechToTextScreen()));
-                },
-                child: Image.asset(
-                  'assets/Group 17.png',
-                  width: 240,
-                ),
-              ),
-              InkWell(
+              Container(
+                height: 65,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => ObjectDetection()));
+                        MaterialPageRoute(builder: (_) => ImageLabelScreen()));
                   },
                   child: Image.asset(
-                    'assets/Group 18.png',
+                    'assets/Group 15.png',
                     width: 240,
+                  ),
+                ),
+              ),
+              Container(
+                height: 65,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => QRCodeScreen()));
+                  },
+                  child: Image.asset(
+                    'assets/Group 16.png',
+                    width: 240,
+                  ),
+                ),
+              ),
+              Container(
+                height: 65,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => SpeechToTextScreen()));
+                  },
+                  child: Image.asset(
+                    'assets/Group 17.png',
+                    width: 240,
+                  ),
+                ),
+              ),
+              Container(
+                height: 65,
+                child: InkWell(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) => ObjectDetection()));
+                    },
+                    child: Image.asset(
+                      'assets/Group 18.png',
+                      width: 240,
+                    ),
                   ),
                 ),
               ),

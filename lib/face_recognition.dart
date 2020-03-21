@@ -57,7 +57,7 @@ class _FaceRecognitionScreenState extends State<FaceRecognitionScreen> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: getImage,
-          child: Icon(Icons.camera_enhance),
+          child: Icon(Icons.add_photo_alternate),
         ),
         body: Container(
           height: screenHeight,

@@ -34,6 +34,7 @@ flutter:
     - assets/tflite/ssd_mobilenet.txt
     - assets/tflite/yolov2_tiny.tflite
     - assets/tflite/yolov2_tiny.txt
+    - assets/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

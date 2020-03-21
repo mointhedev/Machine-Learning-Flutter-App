@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:machine_learning_app/face_recognition.dart';
 import 'package:machine_learning_app/image_labeling.dart';
@@ -13,10 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Face Recognition App',
-        theme: ThemeData(
-          primarySwatch: Colors.pink,
-        ),
+        title: 'Machine Learning App',
+        theme: ThemeData(accentColor: Colors.deepPurpleAccent),
         home: HomePage());
   }
 }
@@ -24,95 +23,117 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height -
+        (MediaQuery.of(context).padding.top + AppBar().preferredSize.height);
     return Scaffold(
       appBar: AppBar(
         title: Text('Machine Learning App'),
+        centerTitle: true,
+        backgroundColor: Color(0xff5A009F),
+        //elevation: 0,
       ),
-      body: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [Colors.pink, Colors.deepPurple])),
-        padding: EdgeInsets.all(40),
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Text(
-              'Select Scanner : ',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.w500),
-            ),
-            SizedBox(
-              height: 1,
-            ),
-            RaisedButton(
-              color: Colors.lime,
-              onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => FaceRecognitionScreen()));
-              },
-              child: Text('Face Recognition'),
-            ),
-            RaisedButton(
-              color: Colors.lime,
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (_) => TextRecognitionScreen(
-                          isTR: true,
-                        )));
-              },
-              child: Text(
-                'Text Recognition',
+      body: SingleChildScrollView(
+        child: Container(
+          height: screenHeight,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0xff5A009F), Color(0xff03004E)])),
+          padding: EdgeInsets.all(30),
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Text(
+                    'Select Scanner : ',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Image.asset(
+                    'assets/tools.png',
+                    height: 30,
+                    fit: BoxFit.fitHeight,
+                  )
+                ],
               ),
-            ),
-            RaisedButton(
-              color: Colors.lime,
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (_) => TextRecognitionScreen(
-                          isTR: false,
-                        )));
-              },
-              child: Text('Barcode Scanner'),
-            ),
-            RaisedButton(
-              color: Colors.lime,
-              onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (_) => QRCodeScreen()));
-              },
-              child: Text('QR Scanner'),
-            ),
-            RaisedButton(
-              color: Colors.lime,
-              onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => ImageLabelScreen()));
-              },
-              child: Text('Label Image'),
-            ),
-            RaisedButton(
-              color: Colors.lime,
-              onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => SpeechToTextScreen()));
-              },
-              child: Text('Speech to Text'),
-            ),
-            RaisedButton(
-              color: Colors.lime,
-              onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (_) => ObjectDetection()));
-              },
-              child: Text('Object Detection'),
-            ),
-          ],
+              SizedBox(
+                height: 1,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (_) => FaceRecognitionScreen()));
+                },
+                child: Image.asset(
+                  'assets/Group 14.png',
+                  width: 240,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (_) => TextRecognitionScreen(
+                            isTR: true,
+                          )));
+                },
+                child: Image.asset(
+                  'assets/Group 10.png',
+                  width: 240,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => ImageLabelScreen()));
+                },
+                child: Image.asset(
+                  'assets/Group 15.png',
+                  width: 240,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (_) => QRCodeScreen()));
+                },
+                child: Image.asset(
+                  'assets/Group 16.png',
+                  width: 240,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => SpeechToTextScreen()));
+                },
+                child: Image.asset(
+                  'assets/Group 17.png',
+                  width: 240,
+                ),
+              ),
+              InkWell(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => ObjectDetection()));
+                  },
+                  child: Image.asset(
+                    'assets/Group 18.png',
+                    width: 240,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

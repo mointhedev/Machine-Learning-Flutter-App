@@ -93,49 +93,87 @@ class _TextRecognitionScreenState extends State<TextRecognitionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height -
+        (MediaQuery.of(context).padding.top + AppBar().preferredSize.height);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.isTR ? 'Text Recognition' : 'Barcode Scanner'),
+        centerTitle: true,
+        backgroundColor: Color(0xff006FA0),
       ),
-      body: isLoading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    width: pickedImage != null ? uiImage.width.toDouble() : 1.0,
-                    height: 350,
-                    child: FittedBox(
-                      child: pickedImage != null
-                          ? Image.file(pickedImage)
-                          : Container(),
+      body: Container(
+        height: screenHeight,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Color(0xff006FA0), Color(0xff4E006A)])),
+        child: isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      height: screenHeight * 0.4,
+                      width: double.infinity,
+                      color: Color(0xffDEEDFF).withOpacity(0.64),
+                      margin: EdgeInsets.all(8),
+                      padding: EdgeInsets.all(8),
+                      child: FittedBox(
+                        child: pickedImage != null
+                            ? Image.file(pickedImage)
+                            : Container(
+                                height: 10,
+                                width: 10,
+                                child: Center(
+                                  child: Icon(
+                                    Icons.image,
+                                    size: 3,
+                                  ),
+                                ),
+                              ),
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Center(
-                        child: Column(
-                      children: <Widget>[
-                        Text(
-                          widget.isTR ? 'Your text' : 'Your Code',
-                          style: Theme.of(context).textTheme.title,
-                        ),
-                        Text(
-                          imageText,
-                          style: TextStyle(fontSize: 16),
-                        )
-                      ],
-                    )),
-                  )
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(18.0),
+                      child: Center(
+                          child: Column(
+                        children: <Widget>[
+                          Text(
+                            widget.isTR ? 'Text' : 'Your Code',
+                            style: Theme.of(context)
+                                .textTheme
+                                .title
+                                .copyWith(color: Colors.white),
+                          ),
+                          Icon(
+                            Icons.arrow_downward,
+                            color: Colors.white,
+                          ),
+                          Container(
+                            height: screenHeight * 0.4,
+                            width: double.infinity,
+                            color: Colors.white,
+                            margin: EdgeInsets.all(16),
+                            child: Align(
+                              alignment: Alignment.topCenter,
+                              child: Text(
+                                imageText,
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                          )
+                        ],
+                      )),
+                    )
+                  ],
+                ),
               ),
-            ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: pickImage,
         child: Icon(Icons.camera_enhance),

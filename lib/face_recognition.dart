@@ -47,26 +47,58 @@ class _FaceRecognitionScreenState extends State<FaceRecognitionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height -
+        (MediaQuery.of(context).padding.top + AppBar().preferredSize.height);
     return Scaffold(
         appBar: AppBar(
           title: Text("Face Recognition"),
+          centerTitle: true,
+          backgroundColor: Color(0xff006FA0),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: getImage,
           child: Icon(Icons.camera_enhance),
         ),
-        body: !_isloading
-            ? FittedBox(
-                child: SizedBox(
-                width: image != null ? image.width.toDouble() : 1.0,
-                height: image != null ? image.height.toDouble() : 1.0,
-                child: CustomPaint(
-                  painter: Painter(rect: rect, image: image),
-                ),
-              ))
-            : Center(
-                child: CircularProgressIndicator(),
-              ) // This trailing comma makes auto-formatting nicer for build methods.
+        body: Container(
+          height: screenHeight,
+          width: double.infinity,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0xff006FA0), Color(0xff4E006A)])),
+          child: Column(
+            children: <Widget>[
+              Container(
+                height: screenHeight * 0.5,
+                width: double.infinity,
+                color: Color(0xffDEEDFF).withOpacity(0.64),
+                margin: EdgeInsets.all(8),
+                padding: EdgeInsets.all(8),
+                child: !_isloading
+                    ? image == null
+                        ? Center(
+                            child: Icon(
+                              Icons.image,
+                              size: 70,
+                            ),
+                          )
+                        : FittedBox(
+                            child: SizedBox(
+                            width: image != null ? image.width.toDouble() : 1.0,
+                            height:
+                                image != null ? image.height.toDouble() : 1.0,
+                            child: CustomPaint(
+                              painter: Painter(rect: rect, image: image),
+                            ),
+                          ))
+                    : Center(
+                        child: CircularProgressIndicator(),
+                      ),
+              ),
+            ],
+          ),
+        ) // This trailing comma makes auto-formatting nicer for build methods.
         );
   }
 }

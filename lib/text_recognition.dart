@@ -118,10 +118,11 @@ class _TextRecognitionScreenState extends State<TextRecognitionScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                      height: screenHeight * 0.4,
+                      height: screenHeight * 0.36,
                       width: double.infinity,
                       color: Color(0xffDEEDFF).withOpacity(0.64),
-                      margin: EdgeInsets.all(8),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                       padding: EdgeInsets.all(8),
                       child: FittedBox(
                         child: pickedImage != null
@@ -139,7 +140,7 @@ class _TextRecognitionScreenState extends State<TextRecognitionScreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(18.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: Center(
                           child: Column(
                         children: <Widget>[
@@ -155,9 +156,9 @@ class _TextRecognitionScreenState extends State<TextRecognitionScreen> {
                             color: Colors.white,
                           ),
                           Container(
-                            height: screenHeight * 0.4,
+                            height: screenHeight * 0.35,
                             width: double.infinity,
-                            color: Colors.white,
+                            color: Colors.white.withOpacity(0.9),
                             margin: EdgeInsets.all(16),
                             child: Align(
                               alignment: Alignment.topCenter,

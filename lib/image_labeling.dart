@@ -57,62 +57,116 @@ class _ImageLabelScreenState extends State<ImageLabelScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height -
+        (MediaQuery.of(context).padding.top + AppBar().preferredSize.height);
     return Scaffold(
       appBar: AppBar(
         title: Text('Image Labeling'),
+        centerTitle: true,
+        backgroundColor: Color(0xff006FA0),
       ),
-      body: isLoading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    width: pickedImage != null ? uiImage.width.toDouble() : 1.0,
-                    height: 350,
-                    child: FittedBox(
-                      child: pickedImage != null
-                          ? Image.file(pickedImage)
-                          : Container(),
+      body: Container(
+        height: screenHeight,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Color(0xff006FA0), Color(0xff4E006A)])),
+        child: isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      height: screenHeight * 0.4,
+                      width: double.infinity,
+                      color: Color(0xffDEEDFF).withOpacity(0.64),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      padding: EdgeInsets.all(8),
+                      child: FittedBox(
+                        child: pickedImage != null
+                            ? Image.file(pickedImage)
+                            : Container(
+                                height: 10,
+                                width: 10,
+                                child: Center(
+                                  child: Icon(
+                                    Icons.image,
+                                    size: 3,
+                                  ),
+                                ),
+                              ),
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Center(
-                        child: Column(
-                      children: <Widget>[
-                        Text(
-                          'Labels',
-                          style: Theme.of(context).textTheme.title,
-                        ),
-                        Column(
-                            children:
-                                imageLabels != null && imageLabels.isNotEmpty
-                                    ? imageLabels.map((imageLabel) {
-                                        return Container(
-                                            height: 100,
-                                            child: Column(
-                                              children: <Widget>[
-                                                ListTile(
-                                                  title: Text(imageLabel.text),
-                                                  subtitle: Text(
-                                                      '${(imageLabel.confidence * 100).round()}%'),
-                                                )
-                                              ],
-                                            ));
-                                      }).toList()
-                                    : [Container()])
-                      ],
-                    )),
-                  )
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Center(
+                          child: Column(
+                        children: <Widget>[
+                          Text(
+                            'Labels',
+                            style: Theme.of(context)
+                                .textTheme
+                                .title
+                                .copyWith(color: Colors.white),
+                          ),
+                          Icon(
+                            Icons.arrow_downward,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Column(
+                              children: imageLabels != null &&
+                                      imageLabels.isNotEmpty
+                                  ? imageLabels.map((imageLabel) {
+                                      return Container(
+                                          height: 100,
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 20),
+                                          color: Colors.white.withOpacity(0.7),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 20),
+                                          child: Column(
+                                            children: <Widget>[
+                                              ListTile(
+                                                title: Text(
+                                                  imageLabel.text,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 17),
+                                                ),
+                                                subtitle: Text(
+                                                    '${(imageLabel.confidence * 100).round()}%',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        fontSize: 15)),
+                                              ),
+                                              Divider(
+                                                color: Colors.black87,
+                                              )
+                                            ],
+                                          ));
+                                    }).toList()
+                                  : [Container()]),
+                          SizedBox(
+                            height: 20,
+                          )
+                        ],
+                      )),
+                    )
+                  ],
+                ),
               ),
-            ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: pickImage,
         child: Icon(Icons.camera_enhance),
